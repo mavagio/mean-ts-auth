@@ -1,5 +1,6 @@
 import mongoose = require('mongoose');
 import {Schema, Document} from 'mongoose';
+import * as bcrypt from 'bcrypt-nodejs';
 
 export interface IUser {
     local            : {
@@ -54,8 +55,19 @@ const UserSchema: Schema = new Schema({
 export interface IUserModel extends IUser, Document {
 }
 
+
+// methods ======================
+// generating a hash
+UserSchema.methods.generateHash = function(password: any) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
+};
+
+// checking if password is valid
+UserSchema.methods.validPassword = function(password: any) {
+    return bcrypt.compareSync(password, this.local.password);
+};
+
+// create the model for users and expose it to our app
 const UserModel = mongoose.model<IUserModel>('User', UserSchema);
 
 export default UserModel;
-
-

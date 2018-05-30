@@ -4,8 +4,7 @@ import * as bodyParser from 'body-parser';
 import * as passport from "passport";
 import * as session from 'express-session';
 import * as cookieParser from "cookie-parser";
-var morgan = require('morgan')
-
+import * as morgan from "morgan";
 
 require('./config/passport')(passport);
 
@@ -30,9 +29,6 @@ app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser()); // get information from html forms
 
-app.set('view engine', 'ejs'); // set up ejs for templating
-
-
 /**
  * Set up for passport authentication
  * */
@@ -47,5 +43,4 @@ const routes = require('./api/routes/apiRoutes');
 routes(app, passport);
 
 app.listen(port);
-
 console.log('RESTful API server started on: ' + port);

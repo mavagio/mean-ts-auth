@@ -18,6 +18,7 @@
     "tslint": "^5.9.1"
   },
   "dependencies": {
+    "@types/bcrypt-nodejs": "0.0.30",
     "@types/body-parser": "^1.16.5",
     "@types/connect-flash": "0.0.34",
     "@types/cookie-parser": "^1.4.1",
@@ -27,6 +28,7 @@
     "@types/morgan": "^1.7.35",
     "@types/passport": "^0.4.5",
     "@types/passport-local": "^1.0.33",
+    "bcrypt-nodejs": "0.0.3",
     "chai": "^4.1.2",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",

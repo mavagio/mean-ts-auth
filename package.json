@@ -25,5 +25,6 @@
   },
   "homepage": "https://github.com/martinavagyan/mean-ts#readme",
   "dependencies": {
+    "@types/morgan": "^1.7.35"
   }
 }
