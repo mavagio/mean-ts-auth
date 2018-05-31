@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiRequestsService} from '../services/api-requests.service';
+import {ApiRequestsService} from '../../services/api-requests.service';
 
 @Component({
   selector: 'app-test-component',
