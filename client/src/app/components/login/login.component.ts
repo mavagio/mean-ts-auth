@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ApiRequestsService} from "../../services/api-requests.service";
 
 @Component({
   selector: 'app-login',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  public loginData: any = {};
+  constructor( private apiRequestsService: ApiRequestsService) { }
 
-  constructor() { }
+
 
   ngOnInit() {
+  }
+
+  public onSubmit(){
+    console.log(this.loginData);
+    this.apiRequestsService.postLogin(this.loginData).subscribe(response => console.log(response));
   }
 
 }

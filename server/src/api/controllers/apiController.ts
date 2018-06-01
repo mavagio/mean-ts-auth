@@ -12,41 +12,36 @@ module.exports = function (passport: any) {
         res.sendFile(path.resolve('public/index.html'));
     };
 
-    /**
-     * Authentication
-     * */
-
-    publicModule.login_get = (req: any, res: any) => {
-        res.sendFile(path.resolve('public/login.html'));
+    publicModule.login_post = (req: any, res: any, next: any) => {
+        passport.authenticate('local-login', function(err: any, user: any, info: any) {
+            if (err) {
+                return next(err); // will generate a 500 error
+            }
+            // Generate a JSON response reflecting signup
+            if (! user) {
+                return res.send({ success : false, message : 'login failed' });
+            }
+            return res.send({ success : true, message : 'login succeeded' });
+        })(req, res);
     };
 
-    publicModule.login_post = (req: any, res: any) => {
-        passport.authenticate('local-login', {
-            successRedirect: '/profile', // redirect to the secure profile section
-            failureRedirect: '/login', // redirect back to the signup page if there is an error
-            failureFlash: true // allow flash messages
-        })(req,res);
-    };
-
-    publicModule.signup_get = (req: any, res: any) => {
-        res.sendFile(path.resolve('public/signup.html'));
-    };
-    publicModule.signup_post = (req: any, res: any) => {
-        passport.authenticate('local-signup', {
-            successRedirect: '/profile', // redirect to the secure profile section
-            failureRedirect: '/signup', // redirect back to the signup page if there is an error
-            failureFlash: true // allow flash messages
-        })(req,res);
-    };
-
-    publicModule.profile_get = (req: any, res: any) => {
-        res.sendFile(path.resolve('public/profile.html'));
+    publicModule.signup_post = (req: any, res: any, next: any) => {
+        passport.authenticate('local-signup', function(err: any, user: any, info: any) {
+            if (err) {
+                return next(err); // will generate a 500 error
+            }
+            // Generate a JSON response reflecting signup
+            if (! user) {
+                return res.send({ success : false, message : 'signup failed' });
+            }
+            return res.send({ success : true, message : 'signup succeeded' });
+        })(req, res);
     };
 
     publicModule.logout_get = (req: any, res: any) => {
-        //TODO
+        req.logout();
+        res.redirect('/');
     };
-
 
     /**
      * Test examples for api callback functions
