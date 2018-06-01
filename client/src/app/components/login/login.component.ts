@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiRequestsService} from "../../services/api-requests.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,8 @@ import {ApiRequestsService} from "../../services/api-requests.service";
 })
 export class LoginComponent implements OnInit {
   public loginData: any = {};
-  constructor( private apiRequestsService: ApiRequestsService) { }
+  constructor( private apiRequestsService: ApiRequestsService,
+               public router: Router) { }
 
 
 
@@ -17,7 +19,11 @@ export class LoginComponent implements OnInit {
 
   public onSubmit(){
     console.log(this.loginData);
-    this.apiRequestsService.postLogin(this.loginData).subscribe(response => console.log(response));
-  }
+    this.apiRequestsService.postLogin(this.loginData).subscribe((response) => {
+      console.log(response, 'success: ', response.success);
+      if (response.success) {
+        this.router.navigate(['profile']);
+      }
+    });
 
 }
