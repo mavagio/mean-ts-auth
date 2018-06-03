@@ -16,6 +16,7 @@ import { ProfileComponent } from './profile/profile.component';
 import {RouterModule} from "@angular/router";
 import {routing} from "./app.routing";
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {AuthGuard} from "./auth/auth.guard";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   providers: [
     RouterModule,
     ApiRequestsService,
-    ConfigurationService
+    ConfigurationService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

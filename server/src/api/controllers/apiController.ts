@@ -8,7 +8,7 @@ module.exports = function (passport: any) {
 
     let publicModule: any = {};
 
-    publicModule.home_get = (req: any, res: any) => {
+    publicModule.home_get = (req: any, res: any, next: any) => {
         res.sendFile(path.resolve('public/index.html'));
     };
 
@@ -40,6 +40,16 @@ module.exports = function (passport: any) {
 
     publicModule.logout_get = (req: any, res: any) => {
         req.logout();
+        res.redirect('/sdasds');
+    };
+
+    publicModule.isLoggedIn = (req: any, res: any, next: any) => {
+        console.log('checking if authorized: ', req.isAuthenticated());
+        // if user is authenticated in the session, carry on
+        if (req.isAuthenticated())
+            return next();
+
+        // if they aren't redirect them to the home page
         res.redirect('/');
     };
 
@@ -47,6 +57,8 @@ module.exports = function (passport: any) {
      * Test examples for api callback functions
      * */
     publicModule.test_get = (req: any, res: any) => {
+        console.log('returning test get');
+
         testCtrl.getAll(req, res);
     };
 
@@ -63,14 +75,3 @@ module.exports = function (passport: any) {
 
     return publicModule;
 };
-
-
-let is_logged_in = (req: any, res: any, next: any) => {
-
-    // if user is authenticated in the session, carry on
-    if (req.isAuthenticated())
-        return next();
-
-    // if they aren't redirect them to the home page
-    res.redirect('/');
-}

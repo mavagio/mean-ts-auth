@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  public onSubmit(){
+  public onSubmit() {
     console.log(this.loginData);
     this.apiRequestsService.postLogin(this.loginData).subscribe((response) => {
       console.log(response, 'success: ', response.success);
@@ -25,5 +25,6 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['profile']);
       }
     });
+  }
 
 }

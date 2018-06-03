@@ -32,7 +32,17 @@ app.use(bodyParser()); // get information from html forms
 /**
  * Set up for passport authentication
  * */
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(session({
+    secret: 'ilovescotchscotchyscotchscotch',
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 60*60*1000,
+        secure: false
+    },
+}));
+
+// session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
