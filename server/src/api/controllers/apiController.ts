@@ -2,6 +2,7 @@ import {Model} from 'mongoose';
 import * as testModel from '../models/testModel';
 import TestCtrl from './testController';
 import * as path from 'path';
+import * as jwt from 'jsonwebtoken';
 
 module.exports = function (passport: any) {
     const testCtrl = new TestCtrl<Model<testModel.ITestModel>>(testModel.default);
@@ -13,7 +14,7 @@ module.exports = function (passport: any) {
     };
 
     publicModule.login_post = (req: any, res: any, next: any) => {
-        passport.authenticate('local-login', function(err: any, user: any, info: any) {
+        passport.authenticate('local-login', {session: true}, function(err: any, user: any, info: any) {
             if (err) {
                 return next(err); // will generate a 500 error
             }
@@ -21,7 +22,15 @@ module.exports = function (passport: any) {
             if (! user) {
                 return res.send({ success : false, message : 'login failed' });
             }
-            return res.send({ success : true, message : 'login succeeded' });
+
+            req.login(user, {session: true}, (err: any) => {
+                if (err) {
+                    res.send(err);
+                }
+                // generate a signed son web token with the contents of user object and return it in the response
+                const token = jwt.sign(user.toJSON(), 'the_secret_seed_that_will_be_changed');
+                return res.json({success: true, user, token});
+            });
         })(req, res);
     };
 
@@ -45,6 +54,8 @@ module.exports = function (passport: any) {
 
     publicModule.isLoggedIn = (req: any, res: any, next: any) => {
         console.log('checking if authorized: ', req.isAuthenticated());
+        console.log('The user is: ');
+        console.log(req.user);
         // if user is authenticated in the session, carry on
         if (req.isAuthenticated())
             return next();

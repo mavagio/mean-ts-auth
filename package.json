@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/martinavagyan/mean-ts#readme",
   "dependencies": {
-    "@types/morgan": "^1.7.35"
+    "@types/morgan": "^1.7.35",
+    "@types/passport-jwt": "^3.0.1",
+    "passport-jwt": "^4.0.0"
   }
 }
