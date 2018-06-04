@@ -11,6 +11,7 @@ module.exports = (app: any, passport: any) => {
      * Testing routes
      * */
     app.route('/api/test/').get(apiController.isLoggedIn, apiController.test_get);
+    app.route('/api/jwttest/').get(apiController.isJWTValid, apiController.test_get);
     app.route('/api/test/').post(apiController.test_post);
     app.route('/api/test/:id').delete(apiController.test_delete);
     app.route('/**').get(apiController.home_get);

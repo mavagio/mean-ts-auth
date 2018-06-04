@@ -64,6 +64,13 @@ module.exports = function (passport: any) {
         res.redirect('/');
     };
 
+    publicModule.isJWTValid =  (req: any, res: any, next: any) => {
+        console.log('checking if authorized: ', req.isAuthenticated());
+        console.log('The user is: ', req.header);
+        let temp = passport.authenticate('jwt', { session: false })(req, res, next);
+        console.log(temp);
+    };
+
     /**
      * Test examples for api callback functions
      * */
