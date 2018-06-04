@@ -49,34 +49,26 @@ module.exports = function (passport: any) {
 
     publicModule.logout_get = (req: any, res: any) => {
         req.logout();
-        res.redirect('/sdasds');
+        res.redirect('/home');
     };
 
     publicModule.isLoggedIn = (req: any, res: any, next: any) => {
-        console.log('checking if authorized: ', req.isAuthenticated());
-        console.log('The user is: ');
-        console.log(req.user);
-        // if user is authenticated in the session, carry on
         if (req.isAuthenticated())
             return next();
-
-        // if they aren't redirect them to the home page
         res.redirect('/');
     };
 
+    /**
+     * If doing a JWT validation use the follwoing before the api call
+     * */
     publicModule.isJWTValid =  (req: any, res: any, next: any) => {
-        console.log('checking if authorized: ', req.isAuthenticated());
-        console.log('The user is: ', req.header);
-        let temp = passport.authenticate('jwt', { session: false })(req, res, next);
-        console.log(temp);
+        passport.authenticate('jwt', { session: false })(req, res, next);
     };
 
     /**
      * Test examples for api callback functions
      * */
     publicModule.test_get = (req: any, res: any) => {
-        console.log('returning test get');
-
         testCtrl.getAll(req, res);
     };
 
