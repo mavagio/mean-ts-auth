@@ -11,7 +11,7 @@ const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 
 // expose this function to our a    pp using module.exports
-module.exports = function(passport) {
+module.exports = function(passport: any) {
 
     // =========================================================================
     // passport session setup ==================================================
@@ -20,13 +20,13 @@ module.exports = function(passport) {
     // passport needs ability to serialize and unserialize users out of session
 
     // used to serialize the user for the session
-    passport.serializeUser(function(user, done) {
+    passport.serializeUser((user: any, done: any)=> {
         done(null, user.id);
     });
 
     // used to deserialize the user
-    passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
+    passport.deserializeUser(function(id: any, done: any) {
+        User.findById(id, function(err: any, user: any) {
             done(err, user);
         });
     });
@@ -43,13 +43,13 @@ module.exports = function(passport) {
             passwordField : 'password',
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
-        function(req, email, password, done) {
+        function(req: any, email: any, password: any, done: any) {
             // asynchronous
             // User.findOne wont fire unless data is sent back
             process.nextTick(function() {
                 // find a user whose email is the same as the forms email
                 // we are checking to see if the user trying to login already exists
-                User.findOne({ 'local.email' :  email }, function(err, user) {
+                User.findOne({ 'local.email' :  email }, function(err: any, user: any) {
                     // if there are any errors, return the error
                     if (err)
                         return done(err);
@@ -68,7 +68,7 @@ module.exports = function(passport) {
                         newUser.local.password = newUser.generateHash(password);
 
                         // save the user
-                        newUser.save(function(err) {
+                        newUser.save(function(err: any) {
                             if (err)
                                 throw err;
                             return done(null, newUser);
@@ -93,13 +93,13 @@ module.exports = function(passport) {
             passwordField : 'password',
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
-        function(req, email, password, done) { // callback with email and password from our form
+        function(req: any, email: any, password: any, done: any) { // callback with email and password from our form
 
             console.log('Just login stuff: ', User);
 
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
-            User.findOne({ 'local.email' :  email }, function(err, user) {
+            User.findOne({ 'local.email' :  email }, function(err: any, user: any) {
                 console.log('User is : ', user);
 
                 // if there are any errors, return the error before anything else
@@ -126,8 +126,8 @@ module.exports = function(passport) {
             jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
             secretOrKey: 'the_secret_seed_that_will_be_changed'
         },
-        function(jwt_payload, done) {
-            User.findOne({id: jwt_payload.sub}, function (err, user) {
+        function(jwt_payload: any, done: any) {
+            User.findOne({id: jwt_payload.sub}, function (err: any, user: any) {
                 if (err) {
                     return done(err, false);
                 }
