@@ -12,19 +12,17 @@ export class LoginComponent implements OnInit {
   constructor( private apiRequestsService: ApiRequestsService,
                public router: Router) { }
 
-
-
   ngOnInit() {
   }
 
   public onSubmit() {
     console.log(this.loginData);
     this.apiRequestsService.postLogin(this.loginData).subscribe((response) => {
-      console.log(response, 'success: ', response.success);
+      console.log('token is: ' + response.token);
       if (response.success) {
+        localStorage.setItem('token', response.token);
         this.router.navigate(['profile']);
       }
     });
   }
-
 }

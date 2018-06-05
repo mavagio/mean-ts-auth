@@ -13,7 +13,10 @@ module.exports = function (passport: any) {
         res.sendFile(path.resolve('public/index.html'));
     };
 
-    publicModule.login_post = (req: any, res: any, next: any) => {
+    /**
+     * Session based login functionality
+     * */
+    publicModule.session_login_post = (req: any, res: any, next: any) => {
         passport.authenticate('local-login', {session: true}, function(err: any, user: any, info: any) {
             if (err) {
                 return next(err); // will generate a 500 error
@@ -27,13 +30,32 @@ module.exports = function (passport: any) {
                 if (err) {
                     res.send(err);
                 }
-                // generate a signed son web token with the contents of user object and return it in the response
-                const token = jwt.sign(user.toJSON(), 'the_secret_seed_that_will_be_changed');
-                return res.json({success: true, user, token});
+                return res.json({success: true, user});
             });
         })(req, res);
     };
 
+    /**
+     * JWT token based login functionality
+     * */
+    publicModule.jwt_login_post =  (req: any, res: any, next: any) => {
+        passport.authenticate('local-login', {session: false}, function(err: any, user: any, info: any) {
+            if (err) {
+                return next(err); // will generate a 500 error
+            }
+            // Generate a JSON response reflecting signup
+            if (! user) {
+                return res.send({ success : false, message : 'login failed' });
+            }
+            // generate a signed son web token with the contents of user object and return it in the response
+            const token = jwt.sign(user.toJSON(), 'the_secret_seed_that_will_be_changed', {expiresIn: "1h"});
+            return res.json({success: true, user, token});
+        })(req, res);
+    };
+
+    /**
+     * Sign up tool
+     * */
     publicModule.signup_post = (req: any, res: any, next: any) => {
         passport.authenticate('local-signup', function(err: any, user: any, info: any) {
             if (err) {
@@ -69,6 +91,7 @@ module.exports = function (passport: any) {
      * Test examples for api callback functions
      * */
     publicModule.test_get = (req: any, res: any) => {
+        console.log('Got to the main request part:');
         testCtrl.getAll(req, res);
     };
 

@@ -120,8 +120,6 @@ module.exports = function(passport: any) {
 
         }));
 
-
-
     passport.use('jwt', new JWTStrategy({
             jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
             secretOrKey: 'the_secret_seed_that_will_be_changed'

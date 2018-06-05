@@ -11,14 +11,20 @@
     <div class="col-sm-6">
       <div class="well">
         <h3><span class="fa fa-user"></span> Local</h3>
-
         <p>
           <strong>id</strong>: <%= user._id %><br>
           <strong>email</strong>: <%= user.local.email %><br>
           <strong>password</strong>: <%= user.local.password %>
         </p>
-
       </div>
+    </div>
+
+    <div class="container col s6">
+      <button (click)="getTests()" class="btn btn-success">Get entries</button>
+    </div>
+    <br>
+    <div *ngFor="let entry of testEntries">
+      <pre>{{entry | json}}</pre>
     </div>
 
   </div>
