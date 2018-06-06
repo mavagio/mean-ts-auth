@@ -4,13 +4,13 @@ Prerequisites
 ---------------
 Make sure to have the following installed on your machine:
 - mongoDB
-- Node
+- Node > 8.9 
 
 Run the code
 ---------------
 - Install dependencies. From root directory run:
 ```
-npm run installdependencies
+npm run install:dependencies
 ```
 - Create .env file in server folder.
 - Copy the following lines to .env file.

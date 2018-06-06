@@ -35,7 +35,7 @@ export class AuthService {
   createUser(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
 
-    this.apiRequestsService.postLogin(authData).subscribe(response => {
+    this.apiRequestsService.postSignup(authData).subscribe(response => {
         console.log(response);
         if (response.success) {
           this.router.navigate(['profile']);
