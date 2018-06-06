@@ -16,8 +16,8 @@ import { ProfileComponent } from './profile/profile.component';
 import {RouterModule} from "@angular/router";
 import {routing} from "./app.routing";
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import {AuthGuard} from "../services/auth.guard";
-import {AuthInterceptor} from "../services/auth-interceptor.service";
+import {AuthGuard} from "../auth/auth.guard";
+import {AuthInterceptor} from "../auth/auth-interceptor.service";
 
 @NgModule({
   declarations: [

@@ -6,6 +6,8 @@ module.exports = (app: any, passport: any) => {
     app.route('/api/login').post(apiController.jwt_login_post);
     app.route('/api/signup').post(apiController.signup_post);
     app.route('/api/logout').get(apiController.logout_get);
+    app.route('/api/user/:userId').get(apiController.isJWTValid, apiController.get_user);
+
 
     /**
      * Testing routes

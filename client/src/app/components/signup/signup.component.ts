@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiRequestsService} from "../../services/api-requests.service";
 import {Router} from "@angular/router";
+import {AuthService} from "../../auth/auth.service";
 
 @Component({
   selector: 'app-signup',
@@ -11,19 +12,15 @@ export class SignupComponent implements OnInit {
   public signupData: any = {};
 
   constructor(private apiRequestsService: ApiRequestsService,
-              public router: Router) {
+              public router: Router,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
   }
 
-  public onSubmit() {
+  public onSignUpSubmit() {
     console.log(this.signupData);
-    this.apiRequestsService.postSignup(this.signupData).subscribe((response) => {
-      console.log(response, 'success: ', response.success);
-      if (response.success) {
-        this.router.navigate(['profile']);
-      }
-    });
+    this.authService.createUser(this.signupData.email, this.signupData.password);
   }
 }

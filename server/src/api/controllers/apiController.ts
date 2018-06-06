@@ -1,11 +1,16 @@
 import {Model} from 'mongoose';
 import * as testModel from '../models/testModel';
-import TestCtrl from './testController';
+import {UserModule, IUserModel} from '../models/userModel';
+
+import TestController from './testController';
+import UserController from './userController';
+
 import * as path from 'path';
 import * as jwt from 'jsonwebtoken';
 
 module.exports = function (passport: any) {
-    const testCtrl = new TestCtrl<Model<testModel.ITestModel>>(testModel.default);
+    const testCtrl = new TestController<Model<testModel.ITestModel>>(testModel.default);
+    const userCtrl = new UserController<Model<IUserModel>>(UserModule);
 
     let publicModule: any = {};
 
@@ -38,18 +43,20 @@ module.exports = function (passport: any) {
     /**
      * JWT token based login functionality
      * */
-    publicModule.jwt_login_post =  (req: any, res: any, next: any) => {
-        passport.authenticate('local-login', {session: false}, function(err: any, user: any, info: any) {
+    publicModule.jwt_login_post = (req: any, res: any, next: any) => {
+        passport.authenticate('local-login', {session: false}, function (err: any, user: any, info: any) {
             if (err) {
                 return next(err); // will generate a 500 error
             }
             // Generate a JSON response reflecting signup
-            if (! user) {
-                return res.send({ success : false, message : 'login failed' });
+            if (!user) {
+                return res.send({success: false, message: 'login failed'});
             }
             // generate a signed son web token with the contents of user object and return it in the response
-            const token = jwt.sign(user.toJSON(), 'the_secret_seed_that_will_be_changed', {expiresIn: "1h"});
-            return res.json({success: true, user, token});
+            const token = jwt.sign(user.toJSON(),
+                'the_secret_seed_that_will_be_changed',
+                {expiresIn: "1h",});
+            return res.json({success: true, user: user, token: token, expiresIn: 3600});
         })(req, res);
     };
 
@@ -80,6 +87,10 @@ module.exports = function (passport: any) {
         res.redirect('/');
     };
 
+    publicModule.get_user = (req: any, res: any, next: any) => {
+        userCtrl.get(req,res);
+    };
+
     /**
      * If doing a JWT validation use the follwoing before the api call
      * */
@@ -92,6 +103,7 @@ module.exports = function (passport: any) {
      * */
     publicModule.test_get = (req: any, res: any) => {
         console.log('Got to the main request part:');
+        console.log('And the hero is: ', req.user);
         testCtrl.getAll(req, res);
     };
 
