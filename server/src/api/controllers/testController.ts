@@ -10,7 +10,7 @@ export default class TestClass<T extends any> extends Base<T> {
         super(model);
     }
 
-    public insert = (req: any, res: any) => {
+    public insert (req: any, res: any) {
         const obj = new this.model(req.body);
         obj.save((err: any, item: any) => {
             if (err) {

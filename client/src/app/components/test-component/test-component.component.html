@@ -1,0 +1,34 @@
+<div class="row col s12">
+  <div class="container col s6">
+    <h1>Test mongoDB</h1>
+    <h5>Here it is possible to test the connection between client, server and database</h5>
+    <h6>You need to be logged in to be able to use the endpoint</h6>
+    <form (submit)="onSubmit()" novalidate #finalForm="ngForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name = "name" class="form-control" id="name" [(ngModel)]="testValues['name']" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" name = "email" class="form-control" id="email" [(ngModel)]="testValues['email']" required>
+      </div>
+
+      <div class="form-group">
+        <label for="type">Type</label>
+        <input type="number" name = "type" class="form-control" id="type" [(ngModel)]="testValues['type']" required>
+      </div>
+
+      <button type="submit" class="btn btn-success">Submit</button>
+
+    </form>
+  </div>
+  <hr/>
+  <div class="container col s6">
+    <button (click)="getTests()" class="btn btn-success">Get entries</button>
+  </div>
+  <br>
+  <div *ngFor="let entry of testEntries">
+      <pre>{{entry | json}}</pre>
+  </div>
+</div>

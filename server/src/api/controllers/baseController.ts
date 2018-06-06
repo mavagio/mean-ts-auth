@@ -6,7 +6,7 @@ export default class Base<T extends any> {
         this.model = model;
     }
 
-    public getAll = (req: any, res: any) => {
+    public getAll (req: any, res: any) {
         this.model.find({}, (err: any, docs: any) => {
             if (err) {
                 return console.error(err);
@@ -15,7 +15,7 @@ export default class Base<T extends any> {
         });
     }
 
-    public insert = (req: any, res: any) => {
+    public insert (req: any, res: any) {
         const obj = new this.model(req.body);
         obj.save((err: any, item: any) => {
             if (err) {
@@ -25,7 +25,7 @@ export default class Base<T extends any> {
         });
     }
 
-    public delete = (req: any, res: any) => {
+    public delete (req: any, res: any) {
         this.model.findOneAndRemove({_id: req.params.id}, (err: any, obj: any) => {
             console.log('del: ', req.params.id);
             if (err) {
@@ -35,7 +35,7 @@ export default class Base<T extends any> {
         });
     }
 
-    public deleteAll = (req: any, res: any) => {
+    public deleteAll (req: any, res: any) {
         this.model.remove({}, (err: any) => {
             if (err) {
                 return console.error(err);
@@ -44,7 +44,7 @@ export default class Base<T extends any> {
         });
     }
 
-    public update = (req: any, res: any) => {
+    public update  (req: any, res: any) {
         this.model.findOneAndUpdate({id: req.params.id}, req.body, (err: any) => {
             if (err) {
                 return console.error(err);
@@ -53,7 +53,8 @@ export default class Base<T extends any> {
         });
     }
 
-    public get = (req: any, res: any) => {
+    get (req: any, res: any) {
+        console.log('In the paernt: ');
         this.model.findOne({entryId: req.params.entryId}, (err: any, obj: any) => {
             if (err) {
                 return console.error(err);
