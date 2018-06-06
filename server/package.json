@@ -14,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^1.12.1",
+    "nodemon": "^1.17.5",
     "tslint": "^5.9.1"
   },
   "dependencies": {
