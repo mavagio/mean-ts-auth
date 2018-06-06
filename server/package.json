@@ -44,6 +44,8 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "request": "^2.85.0",
-    "typescript": "^2.8.1"
+    "typescript": "^2.8.1",
+    "@types/passport-jwt": "^3.0.1",
+    "passport-jwt": "^4.0.0"
   }
 }
