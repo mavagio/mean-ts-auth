@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && set DEBUG=express:* && node src/server.js",
-    "cloudstart": "tsc && NODE_ENV=production node src/server.js",
-    "herokustart": "npm run cloudstart",
+    "start:cloud": "tsc && NODE_ENV=production node src/server.js",
+    "start:heroku": "npm run cloudstart",
     "dev": "nodemon --exec npm start",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "./node_modules/.bin/mocha --reporter spec"

@@ -20,7 +20,6 @@ export class SignupComponent implements OnInit {
   }
 
   public onSignUpSubmit() {
-    console.log(this.signupData);
     this.authService.createUser(this.signupData.email, this.signupData.password);
   }
 }

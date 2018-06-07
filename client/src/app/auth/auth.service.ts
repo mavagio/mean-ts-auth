@@ -36,7 +36,6 @@ export class AuthService {
     const authData: AuthData = { email: email, password: password };
 
     this.apiRequestsService.postSignup(authData).subscribe(response => {
-        console.log(response);
         if (response.success) {
           this.router.navigate(['profile']);
         }
@@ -91,7 +90,6 @@ export class AuthService {
   }
 
   private setAuthTimer(duration: number) {
-    console.log("Setting timer: " + duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);

@@ -33,7 +33,7 @@ cd client; npm start
 
 This will create the database locally. By running the server with the command:
 ```
-npm run cloudstart
+npm run start:cloud
 ```
 The server will run in production environment.
 # Demo

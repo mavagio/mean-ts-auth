@@ -102,8 +102,6 @@ module.exports = function (passport: any) {
      * Test examples for api callback functions
      * */
     publicModule.test_get = (req: any, res: any) => {
-        console.log('Got to the main request part:');
-        console.log('And the hero is: ', req.user);
         testCtrl.getAll(req, res);
     };
 

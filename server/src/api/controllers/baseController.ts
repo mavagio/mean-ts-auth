@@ -27,7 +27,6 @@ export default class Base<T extends any> {
 
     public delete (req: any, res: any) {
         this.model.findOneAndRemove({_id: req.params.id}, (err: any, obj: any) => {
-            console.log('del: ', req.params.id);
             if (err) {
                 return console.error(err);
             }
@@ -54,7 +53,6 @@ export default class Base<T extends any> {
     }
 
     get (req: any, res: any) {
-        console.log('In the paernt: ');
         this.model.findOne({entryId: req.params.entryId}, (err: any, obj: any) => {
             if (err) {
                 return console.error(err);
