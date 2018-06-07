@@ -18,6 +18,7 @@ npm run install:dependencies
 PORT=3000
 DEV_DB='mongodb://localhost/boilerplateDb'
 NODE_ENV='development'
+JWT_SECRET='change_this_example_secret'
 ```
 - Add the following to .env file if you want to run MongoDB with cloud provider (e.g. Mlab):
 ```

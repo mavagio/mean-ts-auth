@@ -6,9 +6,9 @@ import * as session from 'express-session';
 import * as cookieParser from "cookie-parser";
 import * as morgan from "morgan";
 
+const dotenv = require('dotenv').config();
 require('./config/passport')(passport);
 
-const dotenv = require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 3000;
 const path = require('path');
@@ -34,7 +34,7 @@ app.use(bodyParser()); // get information from html forms
  * Set up for passport authentication
  * */
 app.use(session({
-    secret: 'ilovescotchscotchyscotchscotch',
+    secret: String(process.env.JWT_SECRET),
     resave: true,
     saveUninitialized: true,
     cookie: {

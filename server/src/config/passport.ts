@@ -13,7 +13,6 @@ const ExtractJWT = passportJWT.ExtractJwt;
 
 // expose this function to our a    pp using module.exports
 module.exports = function(passport: any) {
-
     // =========================================================================
     // passport session setup ==================================================
     // =========================================================================
@@ -108,7 +107,7 @@ module.exports = function(passport: any) {
 
                 // if the user is found but the password is wrong
                 if (!user.validPassword(password))
-                    return done(null, false, console.log('wrong passpowrd')); // create the loginMessage and save it to session as flashdata
+                    return done(null, false, console.log('wrong password')); // create the loginMessage and save it to session as flashdata
 
                 // all is well, return successful user
                 return done(null, user);
@@ -118,7 +117,7 @@ module.exports = function(passport: any) {
 
     passport.use('jwt', new JWTStrategy({
             jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-            secretOrKey: 'the_secret_seed_that_will_be_changed'
+            secretOrKey: String(process.env.JWT_SECRET),
         },
         function(jwt_payload: any, done: any, req: any) {
             UserModule.findOne({id: jwt_payload.sub}, function (err: any, user: any) {

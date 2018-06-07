@@ -52,9 +52,10 @@ module.exports = function (passport: any) {
             if (!user) {
                 return res.send({success: false, message: 'login failed'});
             }
+            console.log('Secret is: ', process.env.JWT_SECRET);
             // generate a signed son web token with the contents of user object and return it in the response
             const token = jwt.sign(user.toJSON(),
-                'the_secret_seed_that_will_be_changed',
+                String(process.env.JWT_SECRET),
                 {expiresIn: "1h",});
             return res.json({success: true, user: user, token: token, expiresIn: 3600});
         })(req, res);
