@@ -11,20 +11,20 @@ export interface IUser {
         id: string,
         token: string,
         name: string,
-        email: string
+        email: string,
     };
     twitter: {
         id: string,
         token: string,
         displayName: string,
-        username: string
+        username: string,
     };
     google: {
         id: string,
         token: string,
         email: string,
-        name: string
-    }
+        name: string,
+    };
 }
 
 const UserSchema: Schema = new Schema({
@@ -36,34 +36,32 @@ const UserSchema: Schema = new Schema({
         id: String,
         token: String,
         name: String,
-        email: String
+        email: String,
     },
     twitter: {
         id: String,
         token: String,
         displayName: String,
-        username: String
+        username: String,
     },
     google: {
         id: String,
         token: String,
         email: String,
-        name: String
-    }
+        name: String,
+    },
 });
 
 export interface IUserModel extends IUser, Document {
 }
 
-
-// methods ======================
 // generating a hash
-UserSchema.methods.generateHash = function (password: any) {
+UserSchema.methods.generateHash = (password: any) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 };
 
 // checking if password is valid
-UserSchema.methods.validPassword = function (password: any) {
+UserSchema.methods.validPassword = function(password: any) {
     return bcrypt.compareSync(password, this.local.password);
 };
 

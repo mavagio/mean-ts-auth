@@ -38,7 +38,7 @@ export class AuthService {
 
     this.apiRequestsService.postSignup(authData).subscribe(response => {
       if (response.success) {
-        this.router.navigate(['profile']);
+        this.router.navigate(['login']);
       }
     });
   }
