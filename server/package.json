@@ -1,5 +1,5 @@
 {
-  "name": "mean-boilerplate-server",
+  "name": "mean-auth-boilerplate-server",
   "version": "1.0.0",
   "description": "Minimal boilerplate for mean architecture using ts",
   "main": "index.js",

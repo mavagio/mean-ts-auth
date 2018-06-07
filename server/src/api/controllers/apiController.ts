@@ -8,11 +8,11 @@ import UserController from './userController';
 import * as path from 'path';
 import * as jwt from 'jsonwebtoken';
 
-module.exports = function (passport: any) {
+module.exports = (passport: any) => {
     const testCtrl = new TestController<Model<testModel.ITestModel>>(testModel.default);
     const userCtrl = new UserController<Model<IUserModel>>(UserModule);
 
-    let publicModule: any = {};
+    const publicModule: any = {};
 
     publicModule.home_get = (req: any, res: any, next: any) => {
         res.sendFile(path.resolve('public/index.html'));
@@ -22,18 +22,18 @@ module.exports = function (passport: any) {
      * Session based login functionality
      * */
     publicModule.session_login_post = (req: any, res: any, next: any) => {
-        passport.authenticate('local-login', {session: true}, function(err: any, user: any, info: any) {
+        passport.authenticate('local-login', {session: true}, (err: any, user: any, info: any) => {
             if (err) {
                 return next(err); // will generate a 500 error
             }
             // Generate a JSON response reflecting signup
-            if (! user) {
-                return res.send({ success : false, message : 'login failed' });
+            if (!user) {
+                return res.send({success: false, message: 'login failed'});
             }
 
-            req.login(user, {session: true}, (err: any) => {
-                if (err) {
-                    res.send(err);
+            req.login(user, {session: true}, (err2: any) => {
+                if (err2) {
+                    res.send(err2);
                 }
                 return res.json({success: true, user});
             });
@@ -44,7 +44,7 @@ module.exports = function (passport: any) {
      * JWT token based login functionality
      * */
     publicModule.jwt_login_post = (req: any, res: any, next: any) => {
-        passport.authenticate('local-login', {session: false}, function (err: any, user: any, info: any) {
+        passport.authenticate('local-login', {session: false}, (err: any, user: any, info: any) => {
             if (err) {
                 return next(err); // will generate a 500 error
             }
@@ -56,8 +56,9 @@ module.exports = function (passport: any) {
             // generate a signed son web token with the contents of user object and return it in the response
             const token = jwt.sign(user.toJSON(),
                 String(process.env.JWT_SECRET),
-                {expiresIn: "1h",});
-            return res.json({success: true, user: user, token: token, expiresIn: 3600});
+                { expiresIn: "1h" },
+                );
+            return res.json({success: true, user, token, expiresIn: 3600});
         })(req, res);
     };
 
@@ -65,15 +66,15 @@ module.exports = function (passport: any) {
      * Sign up tool
      * */
     publicModule.signup_post = (req: any, res: any, next: any) => {
-        passport.authenticate('local-signup', function(err: any, user: any, info: any) {
+        passport.authenticate('local-signup', (err: any, user: any, info: any) => {
             if (err) {
                 return next(err); // will generate a 500 error
             }
             // Generate a JSON response reflecting signup
-            if (! user) {
-                return res.send({ success : false, message : 'signup failed' });
+            if (!user) {
+                return res.send({success: false, message: 'signup failed'});
             }
-            return res.send({ success : true, message : 'signup succeeded' });
+            return res.send({success: true, message: 'signup succeeded'});
         })(req, res);
     };
 
@@ -83,20 +84,21 @@ module.exports = function (passport: any) {
     };
 
     publicModule.isLoggedIn = (req: any, res: any, next: any) => {
-        if (req.isAuthenticated())
+        if (req.isAuthenticated()) {
             return next();
+        }
         res.redirect('/');
     };
 
     publicModule.get_user = (req: any, res: any, next: any) => {
-        userCtrl.get(req,res);
+        userCtrl.get(req, res);
     };
 
     /**
      * If doing a JWT validation use the follwoing before the api call
      * */
-    publicModule.isJWTValid =  (req: any, res: any, next: any) => {
-        passport.authenticate('jwt', { session: false })(req, res, next);
+    publicModule.isJWTValid = (req: any, res: any, next: any) => {
+        passport.authenticate('jwt', {session: false})(req, res, next);
     };
 
     /**

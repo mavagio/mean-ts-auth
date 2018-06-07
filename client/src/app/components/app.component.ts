@@ -6,14 +6,14 @@ import {AuthService} from "../auth/auth.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements  OnInit{
-  constructor(private authService: AuthService){
+export class AppComponent implements OnInit {
+  title = 'app';
+
+  constructor(private authService: AuthService) {
 
   }
 
   ngOnInit(): void {
     this.authService.autoAuthUser();
   }
-
-  title = 'app';
 }

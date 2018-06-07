@@ -20,7 +20,7 @@ DEV_DB='mongodb://localhost/boilerplateDb'
 NODE_ENV='development'
 JWT_SECRET='change_this_example_secret'
 ```
-- Add the following to .env file if you want to run MongoDB with cloud provider (e.g. Mlab):
+- (Optional) Add the following to .env file if you want to run MongoDB with cloud provider (e.g. Mlab):
 ```
 PROD_DB={{the URI provided by mongoDB could providers, e.g. Mlab}}
 ```
@@ -42,9 +42,9 @@ The server will run in production environment.
 
 # MEAN Stack with TypeScript
 - MongoDB
-- Angular 4
+- Angular 6
 - Express
-- Node
+- Node > 8.9
 
 ## Creating a new endpoint
 - Define your endpoint route in `server/src/api/routes/apiRoutes.ts`, example:

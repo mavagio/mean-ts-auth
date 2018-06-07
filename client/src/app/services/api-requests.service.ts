@@ -25,15 +25,15 @@ export class ApiRequestsService {
     return this.http.post<void>(this.actionUrl + this.testEndpoint, jsonBody);
   }
 
-  getUser(userId): Observable<any>{
+  getUser(userId): Observable<any> {
     return this.http.get<void>(this.actionUrl + this.userEndpoint + userId);
   }
 
-  postLogin(jsonBody): Observable<any>{
+  postLogin(jsonBody): Observable<any> {
     return this.http.post<void>(this.actionUrl + this.loginEndpoint, jsonBody);
   }
 
-  postSignup(jsonBody): Observable<any>{
+  postSignup(jsonBody): Observable<any> {
     return this.http.post<void>(this.actionUrl + this.signupEndpoint, jsonBody);
   }
 
