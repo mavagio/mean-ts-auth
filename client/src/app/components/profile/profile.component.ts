@@ -18,8 +18,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.apiRequestsService.getUser(this.authService.getUserId()).subscribe(response => {
       this.userData = response.local;
-      this.userData.id = this.authService.getUserId() + '';
-      console.log("Hi: ", response.local)
+      this.userData.id = this.authService.getUserId();
     });
   }
 

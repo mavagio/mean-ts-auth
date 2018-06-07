@@ -1,12 +1,12 @@
 {
-  "name": "mean-boilerplate-server",
+  "name": "mean-auth-boilerplate-server",
   "version": "1.0.0",
   "description": "Minimal boilerplate for mean architecture using ts",
   "main": "index.js",
   "scripts": {
     "start": "tsc && set DEBUG=express:* && node src/server.js",
-    "cloudstart": "tsc && NODE_ENV=production node src/server.js",
-    "herokustart": "npm run cloudstart",
+    "start:cloud": "tsc && NODE_ENV=production node src/server.js",
+    "start:heroku": "npm run cloudstart",
     "dev": "nodemon --exec npm start",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "./node_modules/.bin/mocha --reporter spec"
@@ -14,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^1.12.1",
+    "nodemon": "^1.17.5",
     "tslint": "^5.9.1"
   },
   "dependencies": {

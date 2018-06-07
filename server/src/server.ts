@@ -6,9 +6,9 @@ import * as session from 'express-session';
 import * as cookieParser from "cookie-parser";
 import * as morgan from "morgan";
 
+const dotenv = require('dotenv').config();
 require('./config/passport')(passport);
 
-const dotenv = require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 3000;
 const path = require('path');
@@ -29,36 +29,16 @@ app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser()); // get information from html forms
 
-// app.use(function (req, res, next) {
-//
-//     // Website you wish to allow to connect
-//     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-//
-//     // Request methods you wish to allow
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-//
-//     // Request headers you wish to allow
-//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-//
-//     // Set to true if you need the website to include cookies in the requests sent
-//     // to the API (e.g. in case you use sessions)
-//     res.setHeader('Access-Control-Allow-Credentials', 1);
-//
-//     // Pass to next layer of middleware
-//     next();
-// });
-
 /**
  * Set up for passport authentication
  * */
 app.use(session({
-    secret: 'ilovescotchscotchyscotchscotch',
+    secret: String(process.env.JWT_SECRET),
     resave: true,
     saveUninitialized: true,
     cookie: {
-        secure: false
+        secure: false,
     },
-
 }));
 
 // session secret

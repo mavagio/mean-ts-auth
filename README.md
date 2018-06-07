@@ -4,13 +4,13 @@ Prerequisites
 ---------------
 Make sure to have the following installed on your machine:
 - mongoDB
-- Node
+- Node > 8.9 
 
 Run the code
 ---------------
 - Install dependencies. From root directory run:
 ```
-npm run installdependencies
+npm run install:dependencies
 ```
 - Create .env file in server folder.
 - Copy the following lines to .env file.
@@ -18,8 +18,9 @@ npm run installdependencies
 PORT=3000
 DEV_DB='mongodb://localhost/boilerplateDb'
 NODE_ENV='development'
+JWT_SECRET='change_this_example_secret'
 ```
-- Add the following to .env file if you want to run MongoDB with cloud provider (e.g. Mlab):
+- (Optional) Add the following to .env file if you want to run MongoDB with cloud provider (e.g. Mlab):
 ```
 PROD_DB={{the URI provided by mongoDB could providers, e.g. Mlab}}
 ```
@@ -33,7 +34,7 @@ cd client; npm start
 
 This will create the database locally. By running the server with the command:
 ```
-npm run cloudstart
+npm run start:cloud
 ```
 The server will run in production environment.
 # Demo
@@ -41,9 +42,9 @@ The server will run in production environment.
 
 # MEAN Stack with TypeScript
 - MongoDB
-- Angular 4
+- Angular 6
 - Express
-- Node
+- Node > 8.9
 
 ## Creating a new endpoint
 - Define your endpoint route in `server/src/api/routes/apiRoutes.ts`, example:
