@@ -1,4 +1,5 @@
 import {UserModule} from '../api/models/userModel';
+
 const LocalStrategy = require('passport-local').Strategy;
 const passportJWT = require("passport-jwt");
 const JWTStrategy = passportJWT.Strategy;
@@ -39,12 +40,13 @@ module.exports = (passport: any) => {
                     if (user) {
                         return done(null, false, null);
                     } else {
-                        let newUser = new UserModule();
+                        const newUser = new UserModule();
                         newUser.local.email = email;
                         newUser.local.password = newUser.generateHash(password);
-                        newUser.save(function (err: any) {
-                            if (err)
-                                throw err;
+                        newUser.save((err2: any) => {
+                            if (err2) {
+                                throw err2;
+                            }
                             return done(null, newUser);
                         });
                     }
@@ -63,19 +65,19 @@ module.exports = (passport: any) => {
     passport.use('local-login', new LocalStrategy({
             usernameField: 'email',
             passwordField: 'password',
-            passReqToCallback: true
+            passReqToCallback: true,
         },
-        function (req: any, email: any, password: any, done: any) { // callback with email and password from our form
-            UserModule.findOne({'local.email': email}, function (err: any, user: any) {
+        (req: any, email: any, password: any, done: any) => { // callback with email and password from our form
+            UserModule.findOne({'local.email': email}, (err: any, user: any) => {
                 if (err) {
                     return done(err);
                 }
 
-                if (!user){
+                if (!user) {
                     return done(null, false, console.log('no user found'));
                 }
 
-                if (!user.validPassword(password)){
+                if (!user.validPassword(password)) {
                     return done(null, false, console.log('wrong password'));
                 }
 
@@ -92,8 +94,8 @@ module.exports = (passport: any) => {
             jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
             secretOrKey: String(process.env.JWT_SECRET),
         },
-        function (jwt_payload: any, done: any, req: any) {
-            UserModule.findOne({id: jwt_payload.sub}, function (err: any, user: any) {
+        (jwtPayload: any, done: any, req: any) => {
+            UserModule.findOne({id: jwtPayload.sub}, (err: any, user: any) => {
                 if (err) {
                     return done(err, false);
                 }
@@ -103,6 +105,6 @@ module.exports = (passport: any) => {
                     return done(null, false);
                 }
             });
-        }
+        },
     ));
 };
