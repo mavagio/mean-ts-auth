@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   apiPrefix:  'api/',
-  apiHost:    'https://mean-deploy.herokuapp.com/',
+  apiHost:    'https://mean-ts-auth.herokuapp.com/',
 };

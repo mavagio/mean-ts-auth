@@ -36,7 +36,7 @@ This will create the database locally. By running the server with the command:
 ```
 npm run start:cloud
 ```
-The server will run in production environment.
+The server will run in production environment. In addition the server will try to connect to mongoDB form cloud provider.
 # Demo
 - https://mean-deploy.herokuapp.com/
 

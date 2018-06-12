@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "cd server && npm run test && cd ../client && npm run lint && cd ../",
-    "start": "npm run installserver && cd server && npm run herokustart",
-    "install:dependencies": "npm run installserver && npm run installclient",
+    "start": "npm run install:server && cd server && npm run herokustart",
+    "install:dependencies": "npm run install:server && npm run install:client",
     "buildclient": "cd client && npm run build && cd ../",
-    "installclient": "cd client && npm i && cd ../",
-    "installserver": "cd server && npm install && cd ../"
+    "install:client": "cd client && npm i && cd ../",
+    "install:server": "cd server && npm install && cd ../"
   },
   "repository": {
     "type": "git",
