@@ -39,9 +39,19 @@ This will create the database locally. By running the server with the command:
 npm run start:cloud
 ```
 The server will run in production environment. In addition the server will try to connect to mongoDB form cloud provider.
-# Demo
-- https://mean-deploy.herokuapp.com/
-
+# Deploy to Heroku
+- Demo: https://mean-ts-auth.herokuapp.com
+- Create a Heroku account and create a new project.
+- Select the Deployment method with GitHub.
+- Find the repository and connect Heroku with the Github repository you would like to deploy.
+- Set up the enviroment variable in settings section in Heroku, for that you will need these variables:
+```bash
+JWT_SECRET # the secret string for Json Web Token
+PROD_DB # the remote mongo database (e.g. Mlab)
+TZ # time zone, e.g. can be Netherlands/Amsterdam
+```
+- After running deploy Heroku will build the application and deploy.
+- In addition you can select "Enable Auto Deploy" and select a branch from the repo, this will make sure that every time you commit to the branch Heroku will reinitiate deployment. 
 # MEAN Stack with TypeScript
 - MongoDB
 - Angular 6+
