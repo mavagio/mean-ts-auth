@@ -6,7 +6,7 @@
   "scripts": {
     "start": "tsc && set DEBUG=express:* && node src/server.js",
     "start:cloud": "tsc && NODE_ENV=production node src/server.js",
-    "start:heroku": "npm run cloudstart",
+    "start:heroku": "npm run start:cloud",
     "dev": "nodemon --exec npm start",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "./node_modules/.bin/mocha --reporter spec"
@@ -47,5 +47,8 @@
     "typescript": "^2.8.1",
     "@types/passport-jwt": "^3.0.1",
     "passport-jwt": "^4.0.0"
+  },
+  "engines": {
+    "node": "9.5.0"
   }
 }
