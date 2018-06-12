@@ -1,10 +1,12 @@
-# How to run locally
+The following README provides detailed steps on how to run the code locally as well as how to deploy the application to Heroku.
+In the last section explanation on how to create new endpoints is provided.
+## How to run locally
 
 Prerequisites
 ---------------
 Make sure to have the following installed on your machine:
-- mongoDB
-- Node > 8.9 
+- mongoDB (make sure to have mongod running locally when running the code on a local machine)
+- Node > 8.9 (!important)
 
 Run the code
 ---------------
@@ -42,7 +44,7 @@ The server will run in production environment. In addition the server will try t
 
 # MEAN Stack with TypeScript
 - MongoDB
-- Angular 6
+- Angular 6+
 - Express
 - Node > 8.9
 
