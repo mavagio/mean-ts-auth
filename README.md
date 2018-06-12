@@ -52,11 +52,14 @@ TZ # time zone, e.g. can be Netherlands/Amsterdam
 ```
 - After running deploy Heroku will build the application and deploy.
 - In addition you can select "Enable Auto Deploy" and select a branch from the repo, this will make sure that every time you commit to the branch Heroku will reinitiate deployment. 
-## MEAN Stack with TypeScript
+## Technology stack
+MEAN Stack with TypeScript
 - MongoDB
 - Angular 6+
 - Express
 - Node > 8.9
+- TypeScript
+- JavaScript
 
 ## Creating a new endpoint
 - Define your endpoint route in `server/src/api/routes/apiRoutes.ts`, example:
