@@ -1,4 +1,5 @@
 The following README provides detailed steps on how to run the code locally as well as how to deploy the application to Heroku.
+If you are interested only in TypeScript API check out https://github.com/martinavagyan/node-typescript-api
 In the last section explanation on how to create new endpoints is provided.
 ## How to run locally
 
